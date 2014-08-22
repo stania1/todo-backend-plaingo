@@ -5,13 +5,6 @@ import (
   "net/http"
 )
 
-type TodoServer struct {
-}
-
-func (server *TodoServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-  fmt.Fprintf(w, "Hello world! %s", r.URL.Path[1:])
-}
-
 func corsHandler(h http.Handler) http.HandlerFunc {
   return func(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Access-Control-Allow-Origin", "*")
