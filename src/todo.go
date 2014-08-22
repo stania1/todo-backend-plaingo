@@ -5,29 +5,20 @@ import (
   "net/http"
 )
 
-type MyServer struct {
+type TodoServer struct {
 }
 
-func (server *MyServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-
-  fmt.Println(r.Method)
-  if origin := r.Header.Get("Origin"); origin != "" {
-    w.Header().Set("Access-Control-Allow-Origin", origin)
-  }
-
-  if r.Method == "OPTIONS" {
-    return
-  }
-
-  w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, GET, DELETE")
-  w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type")
+func (server *TodoServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
   fmt.Fprintf(w, "Hello world! %s", r.URL.Path[1:])
 }
 
 func corsHandler(h http.Handler) http.HandlerFunc {
   return func(w http.ResponseWriter, r *http.Request) {
+    w.Header().Set("Access-Control-Allow-Origin", "*")
+    w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, GET, DELETE")
+    w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type")
     if (r.Method == "OPTIONS") {
-      //handle preflight in here
+      // preflight request. just return 200 OK.
     } else {
       h.ServeHTTP(w,r)
     }
@@ -35,7 +26,7 @@ func corsHandler(h http.Handler) http.HandlerFunc {
 }
 
 func main() {
-  server := new(MyServer)
+  server := new(TodoServer)
   fmt.Println("test")
   http.HandleFunc("/", corsHandler(server))
   http.ListenAndServe(":8080", nil)
