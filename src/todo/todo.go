@@ -9,6 +9,8 @@ type Todos struct {
   Items []TodoItem
 }
 
-func (t Todos) Add(item TodoItem) {
+func (t *Todos) Add(item TodoItem) {
   t.Items = append(t.Items, item)
 }
+
+
