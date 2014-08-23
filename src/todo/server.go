@@ -23,11 +23,10 @@ func (server *TodoServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     fmt.Fprintf(w, string(body))
 
   } else if (r.Method == "DELETE") {
-    server.todos.Items = make([]TodoItem, 0)
+    server.todos.DeleteAll()
 
   } else if (r.Method == "GET") {
     resultTodos, _ := json.Marshal(server.todos.Items)
-    fmt.Println(len(server.todos.Items))
     fmt.Fprintf(w, string(resultTodos))
   }
 }

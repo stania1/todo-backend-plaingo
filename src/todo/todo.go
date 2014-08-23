@@ -13,4 +13,6 @@ func (t *Todos) Add(item TodoItem) {
   t.Items = append(t.Items, item)
 }
 
-
+func (t *Todos) DeleteAll() {
+  t.Items = make([]TodoItem, 0)
+}
