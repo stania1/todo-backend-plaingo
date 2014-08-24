@@ -9,12 +9,14 @@ import (
 
 type TodoServer struct {
   todos Todos
+  idGenerator IdGenerator
 }
 
 func (server *TodoServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
   if (r.Method == "POST") {
-    var todoItem TodoItem = NewTodoItem()
+    id := server.idGenerator.Generate()
+    var todoItem TodoItem = NewTodoItem(id)
     body, _ := ioutil.ReadAll(r.Body)
 
     json.Unmarshal(body, &todoItem)
