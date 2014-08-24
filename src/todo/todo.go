@@ -4,6 +4,7 @@ type TodoItem struct {
   Title string `json:"title"`
   Order string `json:"order"`
   Completed bool `json:"completed"`
+  Url string `json:"url"`
 }
 
 func NewTodoItem() TodoItem {
