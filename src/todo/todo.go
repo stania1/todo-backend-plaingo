@@ -3,6 +3,11 @@ package main
 type TodoItem struct {
   Title string `json:"title"`
   Order string `json:"order"`
+  Completed bool `json:"completed"`
+}
+
+func NewTodoItem() TodoItem {
+  return TodoItem{Completed: false}
 }
 
 type Todos struct {
