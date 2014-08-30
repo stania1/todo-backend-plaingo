@@ -19,15 +19,35 @@ func NewTodoItem(id string) TodoItem {
 }
 
 type Todos struct {
-  Items []TodoItem
+  // Items []TodoItem
+  Items map[string]TodoItem
 }
 
 func (t *Todos) Add(item TodoItem) {
-  t.Items = append(t.Items, item)
+
+  if (len(t.Items) == 0) {
+    t.Items = make(map[string]TodoItem)
+  }
+
+  t.Items[item.Id] = item
 }
 
 func (t *Todos) DeleteAll() {
-  t.Items = make([]TodoItem, 0)
+  t.Items = make(map[string]TodoItem)
+}
+
+func (t Todos) Get(id string) TodoItem {
+  return t.Items[id]
+}
+
+func (t Todos) AsArray() []TodoItem {
+  m := t.Items
+  v := make([]TodoItem, 0, len(m))
+
+  for  _, value := range m {
+    v = append(v, value)
+  }
+  return v
 }
 
 type IdGenerator struct {
