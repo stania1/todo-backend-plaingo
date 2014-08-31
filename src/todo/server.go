@@ -28,11 +28,17 @@ func (server *TodoServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
   } else if (r.Method == "DELETE") {
     server.todos.DeleteAll()
 
-  } else if (r.Method == "GET") {
+  } else if (r.Method == "GET" && r.URL.Path == "/") {
     todoItems := server.todos.AsArray()
     resultTodos, _ := json.Marshal(todoItems)
 
     fmt.Fprintf(w, string(resultTodos))
+  } else if (r.Method == "GET" && r.URL.Path != "/") {
+    todoId := r.URL.Path[1:]
+    todoItem := server.todos.Get(todoId)
+
+    resultTodo, _ := json.Marshal(todoItem)
+    fmt.Fprintf(w, string(resultTodo))
   }
 }
 
