@@ -7,7 +7,7 @@ import (
 
 type TodoItem struct {
   Title string `json:"title"`
-  Order string `json:"order"`
+  Order int `json:"order"`
   Completed bool `json:"completed"`
   Url string `json:"url"`
   Id string `json:"id"`
