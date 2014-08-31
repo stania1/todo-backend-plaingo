@@ -2,6 +2,7 @@ package main
 
 import (
   "net/http"
+  "os"
 )
 
 func corsHandler(h http.Handler) http.HandlerFunc {
@@ -20,5 +21,5 @@ func corsHandler(h http.Handler) http.HandlerFunc {
 func main() {
   server := new(TodoServer)
   http.HandleFunc("/", corsHandler(server))
-  http.ListenAndServe(":8080", nil)
+  http.ListenAndServe(":" + os.Getenv("PORT"), nil)
 }

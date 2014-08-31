@@ -15,7 +15,7 @@ type TodoItem struct {
 }
 
 func NewTodoItem(id string) TodoItem {
-  url := fmt.Sprintf("http://localhost:8080/" + id)
+  url := fmt.Sprintf("http://powerful-oasis-2305.herokuapp.com/%s", id)
   return TodoItem{Completed: false, Id: id, Url: url}
 }
 
