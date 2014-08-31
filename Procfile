@@ -1,1 +1,1 @@
-web: todo
+web: ./bin/todo
