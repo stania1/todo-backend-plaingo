@@ -29,16 +29,8 @@ func (server *TodoServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     server.todos.DeleteAll()
 
   } else if (r.Method == "GET") {
-    // convert Items to an array before
-    m := server.todos.Items
-    v := make([]TodoItem, 0, len(m))
-
-    for  _, value := range m {
-      v = append(v, value)
-    }
-
-    // resultTodos, _ := json.Marshal(server.todos.Items)
-    resultTodos, _ := json.Marshal(v)
+    todoItems := server.todos.AsArray()
+    resultTodos, _ := json.Marshal(todoItems)
 
     fmt.Fprintf(w, string(resultTodos))
   }

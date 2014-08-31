@@ -19,7 +19,6 @@ func NewTodoItem(id string) TodoItem {
 }
 
 type Todos struct {
-  // Items []TodoItem
   Items map[string]TodoItem
 }
 
