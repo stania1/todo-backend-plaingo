@@ -1,1 +1,1 @@
-web: todo-backend-plaingo -port=$PORT
+web: go install todo; ./bin/todo
