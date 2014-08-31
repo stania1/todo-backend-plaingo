@@ -7,7 +7,7 @@ import (
 func corsHandler(h http.Handler) http.HandlerFunc {
   return func(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Access-Control-Allow-Origin", "*")
-    w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, GET, DELETE")
+    w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, GET, DELETE, PATCH")
     w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type")
     if (r.Method == "OPTIONS") {
       // preflight request. just return 200 OK.
