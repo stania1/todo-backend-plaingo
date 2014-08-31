@@ -39,6 +39,10 @@ func (t Todos) Get(id string) TodoItem {
   return t.Items[id]
 }
 
+func (t *Todos) Update(item TodoItem) {
+  t.Items[item.Id] = item
+}
+
 func (t Todos) AsArray() []TodoItem {
   m := t.Items
   v := make([]TodoItem, 0, len(m))

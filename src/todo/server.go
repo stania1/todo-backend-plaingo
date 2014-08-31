@@ -39,6 +39,18 @@ func (server *TodoServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
     resultTodo, _ := json.Marshal(todoItem)
     fmt.Fprintf(w, string(resultTodo))
+  } else if (r.Method == "PATCH") {
+
+    todoId := r.URL.Path[1:]
+    todoItem := server.todos.Get(todoId)
+
+    body, _ := ioutil.ReadAll(r.Body)
+    json.Unmarshal(body, &todoItem)
+
+    server.todos.Update(todoItem)
+
+    resultTodo, _ := json.Marshal(todoItem)
+    fmt.Fprintf(w, string(resultTodo))
   }
 }
 
