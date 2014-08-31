@@ -28,10 +28,8 @@ func (server *TodoServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     server.todos.DeleteAll()
 
   } else if (r.Method == "GET" && r.URL.Path == "/") {
-    todoItems := server.todos.AsArray()
-    resultTodos, _ := json.Marshal(todoItems)
 
-    fmt.Fprintf(w, string(resultTodos))
+    fmt.Fprintf(w, server.todos.String())
 
   } else if (r.Method == "GET" && r.URL.Path != "/") {
     todoId := r.URL.Path[1:]

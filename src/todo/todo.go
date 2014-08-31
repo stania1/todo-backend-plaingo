@@ -59,6 +59,11 @@ func (t Todos) AsArray() []TodoItem {
   return v
 }
 
+func (t Todos) String() string {
+  resultTodo, _ := json.Marshal(t.AsArray())
+  return string(resultTodo)
+}
+
 type IdGenerator struct {
   id int
 }
