@@ -3,6 +3,7 @@ package main
 import (
   "fmt"
   "strconv"
+  "encoding/json"
 )
 
 type TodoItem struct {
@@ -16,6 +17,11 @@ type TodoItem struct {
 func NewTodoItem(id string) TodoItem {
   url := fmt.Sprintf("http://localhost:8080/" + id)
   return TodoItem{Completed: false, Id: id, Url: url}
+}
+
+func (t TodoItem) String() string {
+  resultTodo, _ := json.Marshal(t)
+  return string(resultTodo)
 }
 
 type Todos struct {

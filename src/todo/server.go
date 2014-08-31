@@ -22,8 +22,7 @@ func (server *TodoServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     json.Unmarshal(body, &todoItem)
     server.todos.Add(todoItem)
 
-    resultTodo, _ := json.Marshal(todoItem)
-    fmt.Fprintf(w, string(resultTodo))
+    fmt.Fprintf(w, todoItem.String())
 
   } else if (r.Method == "DELETE") {
     server.todos.DeleteAll()
@@ -33,14 +32,14 @@ func (server *TodoServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     resultTodos, _ := json.Marshal(todoItems)
 
     fmt.Fprintf(w, string(resultTodos))
+
   } else if (r.Method == "GET" && r.URL.Path != "/") {
     todoId := r.URL.Path[1:]
     todoItem := server.todos.Get(todoId)
 
-    resultTodo, _ := json.Marshal(todoItem)
-    fmt.Fprintf(w, string(resultTodo))
-  } else if (r.Method == "PATCH") {
+    fmt.Fprintf(w, todoItem.String())
 
+  } else if (r.Method == "PATCH") {
     todoId := r.URL.Path[1:]
     todoItem := server.todos.Get(todoId)
 
@@ -49,8 +48,7 @@ func (server *TodoServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
     server.todos.Update(todoItem)
 
-    resultTodo, _ := json.Marshal(todoItem)
-    fmt.Fprintf(w, string(resultTodo))
+    fmt.Fprintf(w, todoItem.String())
   }
 }
 
